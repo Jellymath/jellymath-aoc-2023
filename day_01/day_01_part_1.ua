@@ -1,6 +1,9 @@
+Input ← &fras "input.txt"
+Lines ← ⊜□≠, @\n
+
 Num ← (
   regex "1|2|3|4|5|6|7|8|9"
-  ⊂ ∩⊔ ⊃⊢ (⊢⇌)
+  ⊂ ∩⊔ ⊃⊢(⊢⇌)
   parse
 )
 
@@ -11,4 +14,4 @@ F {"1abc2"
    "a1b2c3d4e5f"
    "treb7uchet"}
 
-F ⊜□≠, @\n &fras "input.txt"
+F Lines Input
