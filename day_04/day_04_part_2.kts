@@ -11,12 +11,11 @@ val games = input.map {
 
 val winningCounts = games.map { (winning, yours) -> (yours intersect winning).size }
 
-var sum = 0
-var cards = IntArray(winningCounts.size) { 1 }
-for (i in winningCounts.indices) {
-    sum += cards[i]
-    for (j in (i + 1)..<(i + 1 + winningCounts[i])) {
-        cards[j] += cards[i]
-    }
+fun <T> List<T>.updateFirst(n: Int, transform: (T) -> T) = take(n).map(transform) + drop(n)
+
+val (sum, _) = winningCounts.fold(0 to List(winningCounts.size) { 1 }) { (currentSum, cards), count ->
+    val cardsCount = cards.first()
+    (currentSum + cardsCount) to cards.drop(1).updateFirst(count) { it + cardsCount }
 }
+
 println(sum)
