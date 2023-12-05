@@ -15,7 +15,8 @@ fun parseRanges(from: String) = RangeMap(input.substringAfter(from).substringBef
     Range(originFrom.toLong(), destinationFrom.toLong(), rangeLength.toLong())
 })
 
-val seeds = input.substringAfter("seeds: ").substringBefore(nl).split(" ").map { it.toLong() }
+val seedRanges = input.substringAfter("seeds: ").substringBefore(nl).split(" ").map { it.toLong() }
+    .chunked(2) { (start, length) -> start..<(start + length) }
 
 val seedToSoil = parseRanges("seed-to-soil map:$nl")
 val soilToFertilizer = parseRanges("soil-to-fertilizer map:$nl")
@@ -34,4 +35,4 @@ val seedToLocation = seedToSoil
     .andThen(temperatureToHumidity)
     .andThen(humidityToLocation)
 
-println(seeds.minOf(seedToLocation))
+println(seedRanges.minOf { it.minOf(seedToLocation) })
