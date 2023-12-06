@@ -3,10 +3,14 @@ import kotlin.math.*
 
 val (timeStr, distanceStr) = File("input.txt").readLines()
 
-val times = timeStr.substringAfter("Time:").trim().split("\\s+".toRegex()).map { it.toInt() }
-val distancesToBeat = distanceStr.substringAfter("Distance:").trim().split("\\s+".toRegex()).map { it.toInt() + 1 }
+val times = timeStr.substringAfter("Time:").trim()
+    .split("\\s+".toRegex())
+    .map { it.toInt() }
+val minWinDistances = distanceStr.substringAfter("Distance:").trim()
+    .split("\\s+".toRegex())
+    .map { it.toInt() + 1 }
 
-val races = times zip distancesToBeat
+val races = times zip minWinDistances
 
 // find integer y >= 0, where y = -x^2 + time * x - distance
 // a = -1, b = time, c = -distance
